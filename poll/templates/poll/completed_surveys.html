@@ -1,0 +1,33 @@
+{% extends 'poll/base.html' %}
+
+{%block title%}
+Пройденные опросы
+{% endblock %}
+
+{%block content%}
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">Дата</th>
+            <th scope="col">Пользователь</th>
+            <th scope="col">Вопрос</th>
+            <th scope="col">Ответ</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        {% for survey in surveys_list %}
+        <tr>
+            <td>{{ survey.pub_date }}</td>
+            <td>{{ survey.user }}</td>
+            <td>{{ survey.question.question_text }}</td>
+            <td>{{ survey.choice }}</td>
+        </tr>
+        {% endfor %}
+
+        </tbody>
+    </table>
+
+
+{% endblock %}

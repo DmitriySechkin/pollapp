@@ -1,0 +1,19 @@
+{% extends 'poll/base.html' %}
+
+{%block title%}
+Pollapp
+{% endblock %}
+
+{%block content%}
+    {% if survey_list %}
+    <ul class="list-group">
+    {% for survey in survey_list %}
+        <li class="list-group-item"><a href="/poll/{{ survey.id }}/">
+            {{ survey.title }}</a>
+        </li>
+    {% endfor %}
+    </ul>
+    {% else %}
+        <p>Нет доступных опросов</p>
+    {% endif %}
+{% endblock %}

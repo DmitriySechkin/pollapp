@@ -1,0 +1,47 @@
+{% extends 'poll/base.html' %}
+
+{%block title%}
+{{ survey.title }}
+{% endblock %}
+
+{%block content%}
+    <h4 align="center" class="container mb-3">{{ survey.title }}</h4>
+
+    {% for question in survey.survey_questions %}
+
+    <form action="{% url 'poll:choise_save' question.id %}" method="post">
+        {% csrf_token %}
+        <div class="card text-center">
+            <div class="card-header" align="left" >
+                {{ question.question_text }}
+            </div>
+            <ul class="list-group list-group-flush">
+                {% if question.type_question == 't' %}
+                    <li class="list-group-item">
+                    <input type="email" class="form-control" id="answer" aria-describedby="emailHelp">
+                        <small id="emailHelp" class="form-text text-muted">
+                            Введите ответ в поле
+                        </small>
+                    </li>
+                {% else %}
+                    {% for choice in question.choice_set.all %}
+                    <li class="list-group-item custom-radio">
+                        <input type="hidden" name="question" value="{{question.id}}">
+                        <input type="radio" name="choice" value="{{choice.id}}"
+                               id="{{choice.id}}"
+                               class="form-control custom-control-input"
+                               required autofocus>
+                        <label class="custom-control-label" for="{{choice.id}}">
+                            {{ choice.choice_text }}
+                        </label>
+                    </li>
+                    {% endfor %}
+                {% endif %}
+            </ul>
+            <div class="card-footer">
+                <button class="btn btn-info" type="submit">Submit</button>
+            </div>
+        </div>
+    </form>
+    {% endfor %}
+{% endblock %}

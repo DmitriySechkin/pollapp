@@ -1,0 +1,52 @@
+<! DOCTIPE HTML>
+
+<html lang="en">
+<head>
+    <meta charset="utf8">
+    <meta name="viewport" content="width=device-widht, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+          crossorigin="anonymous">
+    <title>
+        {%block title%}
+        Base Page
+        {% endblock%}
+    </title>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'index' %}">Новые опросы</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'completed_surveys' %}">Пройденные опросы</a>
+              </li>
+            </ul>
+              {% if request.user.is_superuser %}
+              <span class="nav-item offset-8">
+                <a class="nav-link text-info" href="/admin/">Admin</a>
+              </span>
+              {% endif %}
+          </div>
+        </nav>
+    </header>
+    <main role="main" class="container py-md-5">
+        <div class="mb-5 col-6 offset-md-3">
+            <p>
+        {%block content%}
+        No content for the display
+        {% endblock%}
+            </p>
+        </div>
+    </main>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+</body>
+
+</html>
+
