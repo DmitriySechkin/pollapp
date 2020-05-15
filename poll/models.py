@@ -7,7 +7,6 @@ TYPES_ANSWERS = (
 )
 
 
-
 class NewSurvey(models.Model):
     title = models.CharField(max_length=100, db_index=True)
 
