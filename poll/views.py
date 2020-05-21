@@ -38,15 +38,19 @@ def detail(request, survey_id):
 def choise_save(request, question_id):
     """ Сохранение ответа"""
 
-    question = get_object_or_404(Question, pk=question_id, )
+    question = get_object_or_404(Question, pk=question_id)
+    new_survey = question.newsurvey
     user = request.user
     selected_choice = question.choice_set.get(pk=request.POST['choice'])
 
     try:
-        survey = Survey.objects.get(question=question_id)
+        survey = Survey.custom_manager.get(question=question_id)
         survey.choice = selected_choice
     except ObjectDoesNotExist:
-        survey = Survey(user=user, question=question, choice=selected_choice)
+        survey = Survey(user=user,
+                        question=question,
+                        choice=selected_choice,
+                        new_survey_id=new_survey)
 
     survey.save()
 
@@ -62,11 +66,7 @@ def completed_surveys(request):
     """ Загрузка пройденных опросов """
 
     user = request.user
-
-    if request.user.is_superuser:
-        surveys_list = Survey.objects.all()
-    else:
-        surveys_list = Survey.objects.get(user=user)
+    surveys_list = Survey.custom_manager.surveys_data(user)
 
     return render(
         request,

@@ -8,25 +8,29 @@
 
     <table class="table">
         <thead>
-        <tr>
-            <th scope="col">Дата</th>
-            <th scope="col">Пользователь</th>
-            <th scope="col">Вопрос</th>
-            <th scope="col">Ответ</th>
-        </tr>
+            <tr>
+                <th scope="col">Дата</th>
+                <th scope="col">Пользователь</th>
+                <th scope="col">Вопрос</th>
+                <th scope="col">Ответ</th>
+            </tr>
         </thead>
-        <tbody>
 
-        {% for survey in surveys_list %}
-        <tr>
-            <td>{{ survey.pub_date }}</td>
-            <td>{{ survey.user }}</td>
-            <td>{{ survey.question.question_text }}</td>
-            <td>{{ survey.choice }}</td>
-        </tr>
+        {% for survey, data_survey in surveys_list.items %}
+            <tbody>
+                <tr>
+                    <td class="">{{ survey }} </td>
+                </tr>
+                {% for answer in data_survey %}
+                <tr>
+                    <td>{{ answer.pub_date }}</td>
+                    <td>{{ answer.user }}</td>
+                    <td>{{ answer.question.question_text }}</td>
+                    <td>{{ answer.choice }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
         {% endfor %}
-
-        </tbody>
     </table>
 
 
