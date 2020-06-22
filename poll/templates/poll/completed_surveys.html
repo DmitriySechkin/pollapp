@@ -18,15 +18,15 @@
 
         {% for survey, data_survey in surveys_list.items %}
             <tbody>
-                <tr>
-                    <td class="">{{ survey }} </td>
+                <tr class="table-active text-dark">
+                    <td colspan="4">{{ survey }} </td>
                 </tr>
                 {% for answer in data_survey %}
                 <tr>
                     <td>{{ answer.pub_date }}</td>
                     <td>{{ answer.user }}</td>
                     <td>{{ answer.question.question_text }}</td>
-                    <td>{{ answer.choice }}</td>
+                    <td>{{ answer.answer }}</td>
                 </tr>
                 {% endfor %}
             </tbody>

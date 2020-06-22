@@ -25,41 +25,24 @@ class IndexView(LoginRequiredMixin, View):
         return HttpResponse(template.render(context, request))
 
 
-def detail(request, survey_id):
-    """ Загрузка страницы для прохождения опросов"""
+class Detail(LoginRequiredMixin, View):
+    def get(self, request, survey_id):
+        survey = get_object_or_404(NewSurvey, pk=survey_id, )
 
-    survey = get_object_or_404(NewSurvey, pk=survey_id, )
-    if survey.survey_questions:
-        return render(request, 'poll/detail.html', {'survey': survey})
-    else:
-        return render(request, 'poll/empty_poll.html')
+        if survey.survey_questions:
+            return render(request, 'poll/detail_test.html', {'survey': survey})
+        else:
+            return render(request, 'poll/empty_poll.html')
 
+    def post(self, request, survey_id):
+        user = request.user
+        survey = get_object_or_404(NewSurvey, pk=survey_id, )
+        for question_id, response_user in iter(request.POST.items()):
+            if question_id == 'csrfmiddlewaretoken':
+                continue
+            Survey.custom_manager.save_answer(question_id, response_user, user)
 
-def choise_save(request, question_id):
-    """ Сохранение ответа"""
-
-    question = get_object_or_404(Question, pk=question_id)
-    new_survey = question.newsurvey
-    user = request.user
-    selected_choice = question.choice_set.get(pk=request.POST['choice'])
-
-    try:
-        survey = Survey.custom_manager.get(question=question_id)
-        survey.choice = selected_choice
-    except ObjectDoesNotExist:
-        survey = Survey(user=user,
-                        question=question,
-                        choice=selected_choice,
-                        new_survey_id=new_survey)
-
-    survey.save()
-
-    return HttpResponseRedirect(
-        reverse(
-            'poll:detail_survey',
-            args=(question.newsurvey.pk,)
-        )
-    )
+        return render(request, 'poll/detail_test.html', {'survey': survey})
 
 
 def completed_surveys(request):
@@ -67,6 +50,9 @@ def completed_surveys(request):
 
     user = request.user
     surveys_list = Survey.custom_manager.surveys_data(user)
+    for survey, data_survey in iter(surveys_list.items()):
+        for answer in data_survey:
+            print(answer.user)
 
     return render(
         request,

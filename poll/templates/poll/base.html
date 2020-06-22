@@ -15,34 +15,76 @@
     </title>
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-          <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
+    <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+        <span class="navbar-nav px-3">
+            <a class="nav-link" href="{% url 'index' %}">Новые опросы</a>
+        </span>
+        <span class="navbar-nav px-3">
+            <a class="nav-link" href="{% url 'completed_surveys' %}">Пройденные опросы</a>
+        </span>
+        {% if request.user.is_superuser %}
+        <span class="nav-item offset-8">
+        <a class="nav-link text-info" href="/admin/">Admin</a>
+        </span>
+        {% endif %}
+    </nav>
+
+    <div class="container-fluid">
+      <div class="row">
+        <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+          <div class="sidebar-sticky pt-3">
+            <ul class="nav flex-column">
               <li class="nav-item">
-                <a class="nav-link" href="{% url 'index' %}">Новые опросы</a>
+                <a class="nav-link active" href="#">
+                  <span data-feather="home"></span>
+                  Dashboard <span class="sr-only">(current)</span>
+                </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="{% url 'completed_surveys' %}">Пройденные опросы</a>
+                <a class="nav-link" href="#">
+                  <span data-feather="file"></span>
+                  Orders
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">
+                  <span data-feather="shopping-cart"></span>
+                  Products
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">
+                  <span data-feather="users"></span>
+                  Customers
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">
+                  <span data-feather="bar-chart-2"></span>
+                  Reports
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">
+                  <span data-feather="layers"></span>
+                  Integrations
+                </a>
               </li>
             </ul>
-              {% if request.user.is_superuser %}
-              <span class="nav-item offset-8">
-                <a class="nav-link text-info" href="/admin/">Admin</a>
-              </span>
-              {% endif %}
+
           </div>
         </nav>
-    </header>
-    <main role="main" class="container py-md-5">
-        <div class="mb-5 col-6 offset-md-3">
-            <p>
-        {%block content%}
-        No content for the display
-        {% endblock%}
-            </p>
-        </div>
-    </main>
+        <main  role="main" class="col-md-6 ml-sm-auto col-lg-9 px-md-1">
+            <div class="col-6">
+                <p>
+            {%block content%}
+            No content for the display
+            {% endblock%}
+                </p>
+            </div>
+        </main>
+      </div>
+    </div>
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
