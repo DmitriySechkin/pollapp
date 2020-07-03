@@ -15,66 +15,35 @@
     </title>
 </head>
 <body>
-    <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
-        <span class="navbar-nav px-3">
-            <a class="nav-link" href="{% url 'index' %}">Новые опросы</a>
-        </span>
-        <span class="navbar-nav px-3">
-            <a class="nav-link" href="{% url 'completed_surveys' %}">Пройденные опросы</a>
-        </span>
+<header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar bg-dark fixed-top">
+    <div class = "navbar-nav-scroll">
+        <ul class="navbar-nav bd-navbar-nav flex-row">
+            <li class="navitem">
+                {% url 'index' as index%}
+                <a class="nav-link {% if index == request.path %} active {%endif%}" href="{{index}}">Новые опросы</a>
+            </li>
+            <li class="navitem">
+                {% url 'completed_surveys' as completed_surveys%}
+                <a class="nav-link {% if completed_surveys == request.path %} active {%endif%}" href="{{completed_surveys}}">Пройденные опросы</a>
+            </li>
+        </ul>
+    </div>
+    <div class="navbar-nav ml-md-auto">
         {% if request.user.is_superuser %}
-        <span class="nav-item offset-8">
-        <a class="nav-link text-info" href="/admin/">Admin</a>
-        </span>
+            <a class="nav-link text-info" href="/admin/">Admin</a>
         {% endif %}
-    </nav>
-
-    <div class="container-fluid">
-      <div class="row">
-        <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
-          <div class="sidebar-sticky pt-3">
-            <ul class="nav flex-column">
-              <li class="nav-item">
-                <a class="nav-link active" href="#">
-                  <span data-feather="home"></span>
-                  Dashboard <span class="sr-only">(current)</span>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">
-                  <span data-feather="file"></span>
-                  Orders
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">
-                  <span data-feather="shopping-cart"></span>
-                  Products
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">
-                  <span data-feather="users"></span>
-                  Customers
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">
-                  <span data-feather="bar-chart-2"></span>
-                  Reports
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">
-                  <span data-feather="layers"></span>
-                  Integrations
-                </a>
-              </li>
-            </ul>
-
-          </div>
-        </nav>
-        <main  role="main" class="col-md-6 ml-sm-auto col-lg-9 px-md-1">
+    </div>
+</header>
+    <div class="container-fluid mt-5 mb-5">
+      <div class="row flex-xl-nowrap pt-5">
+        <div class="col-md-3 col-xl-2 bd-sidebar">
+            <nav class="collapse bd-links">
+                <div class="bd-toc-item"><a>1</a></div>
+                <div class="bd-toc-item">2</div>
+                <div class="bd-toc-item">3</div>
+            </nav>
+        </div>
+          <main  role="main" class="col-md-6 ml-sm-auto col-lg-9 px-md-1">
             <div class="col-6">
                 <p>
             {%block content%}
@@ -88,7 +57,20 @@
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+<footer id="footer" class="footer"><!--Footer-->
+    <div class="fixed-bottom bg-dark">
+        <div class="container">
+            <div class="row">
+                <p class="pull-left">Copyright © 2017</p>
+                <p class="pull-right">Пожарский Ярослав</p>
+            </div>
+        </div>
+    </div>
+</footer><!--/Footer-->
+
 </body>
+
 
 </html>
 
